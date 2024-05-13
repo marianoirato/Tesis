@@ -1,0 +1,8 @@
+prefix=/home/pi/tesis/camaras_ws/install
+
+Name: camaras
+Description: Description of camaras
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

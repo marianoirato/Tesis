@@ -1,0 +1,2 @@
+camaras
+-DCATKIN_DEVEL_PREFIX=/home/pi/tesis/camaras_ws/devel -DCMAKE_INSTALL_PREFIX=/home/pi/tesis/camaras_ws/install -G Unix Makefiles
