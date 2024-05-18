@@ -1,5 +1,4 @@
 
-
 #include "tcamcamera.h"
 #include "tcamprop.h"
 
