@@ -20,7 +20,7 @@ message(${TCAMLIB_LIBRARIES})
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES camaras_ros
-#  CATKIN_DEPENDS cv_bridge image_transport image_view roscpp rospy
+ CATKIN_DEPENDS cv_bridge image_transport image_view roscpp rospy
 #  DEPENDS system_lib
 )
 

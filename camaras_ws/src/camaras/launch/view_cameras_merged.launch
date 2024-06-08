@@ -1,0 +1,8 @@
+<launch>
+    <node pkg="camaras" type="camaras_node" name="camaras_node" output="screen" />
+
+    <node pkg="image_view" type="image_view" name="image_view_merged" output="screen">
+        <remap from="/image" to="/merged_image"/>
+    </node>
+</launch>
+

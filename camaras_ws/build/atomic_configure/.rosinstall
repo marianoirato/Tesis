@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/pi/tesis/camaras_ws/devel/setup.sh
+    local-name: /home/ubuntu/Tesis/camaras_ws/devel/setup.sh

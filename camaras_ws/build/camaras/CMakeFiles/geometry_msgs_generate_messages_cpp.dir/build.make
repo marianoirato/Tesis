@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/tesis/camaras_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/Tesis/camaras_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/tesis/camaras_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/Tesis/camaras_ws/build
 
 # Utility rule file for geometry_msgs_generate_messages_cpp.
 
@@ -63,10 +63,10 @@ camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build: geometry_msgs_
 .PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
 
 camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/clean:
-	cd /home/pi/tesis/camaras_ws/build/camaras && $(CMAKE_COMMAND) -P CMakeFiles/geometry_msgs_generate_messages_cpp.dir/cmake_clean.cmake
+	cd /home/ubuntu/Tesis/camaras_ws/build/camaras && $(CMAKE_COMMAND) -P CMakeFiles/geometry_msgs_generate_messages_cpp.dir/cmake_clean.cmake
 .PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/clean
 
 camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/depend:
-	cd /home/pi/tesis/camaras_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pi/tesis/camaras_ws/src /home/pi/tesis/camaras_ws/src/camaras /home/pi/tesis/camaras_ws/build /home/pi/tesis/camaras_ws/build/camaras /home/pi/tesis/camaras_ws/build/camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Tesis/camaras_ws/src /home/ubuntu/Tesis/camaras_ws/src/camaras /home/ubuntu/Tesis/camaras_ws/build /home/ubuntu/Tesis/camaras_ws/build/camaras /home/ubuntu/Tesis/camaras_ws/build/camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/depend
 

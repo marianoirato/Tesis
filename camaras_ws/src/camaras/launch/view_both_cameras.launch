@@ -1,0 +1,15 @@
+<launch>
+    <!-- Node to run the camaras_node executable -->
+    <node pkg="camaras" type="camaras_node" name="camaras_node" output="screen" />
+
+    <!-- Node to view the camera1 image -->
+    <node pkg="image_view" type="image_view" name="image_view1" output="screen">
+        <remap from="image" to="/camera1"/>
+    </node>
+
+    <!-- Node to view the camera2 image -->
+    <node pkg="image_view" type="image_view" name="image_view2" output="screen">
+        <remap from="image" to="/camera2"/>
+    </node>
+</launch>
+

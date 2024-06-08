@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/tesis/camaras_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/Tesis/camaras_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/tesis/camaras_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/Tesis/camaras_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,18 +67,6 @@ install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -112,16 +100,17 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
@@ -135,16 +124,27 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /home/pi/tesis/camaras_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/pi/tesis/camaras_ws/build/CMakeFiles /home/pi/tesis/camaras_ws/build/camaras/CMakeFiles/progress.marks
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/tesis/camaras_ws/build/CMakeFiles 0
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/Tesis/camaras_ws/build/CMakeFiles /home/ubuntu/Tesis/camaras_ws/build/camaras/CMakeFiles/progress.marks
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/Tesis/camaras_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/clean
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/preinstall
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/preinstall
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/pi/tesis/camaras_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 camaras/CMakeFiles/camaras_node.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/camaras_node.dir/rule
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/camaras_node.dir/rule
 .PHONY : camaras/CMakeFiles/camaras_node.dir/rule
 
 # Convenience name for target.
@@ -179,312 +179,12 @@ camaras_node: camaras/CMakeFiles/camaras_node.dir/rule
 
 # fast build rule for target.
 camaras_node/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/build
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/build
 .PHONY : camaras_node/fast
 
 # Convenience name for target.
-camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_cpp: camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_nodejs: camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_lisp: camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_py: camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_cpp: camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_cpp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_cpp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_py: camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_py: camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_py
-
-# fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_nodejs: camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_lisp: camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_gencfg: camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-.PHONY : dynamic_reconfigure_gencfg
-
-# fast build rule for target.
-dynamic_reconfigure_gencfg/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
-.PHONY : dynamic_reconfigure_gencfg/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-.PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_eus: camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_eus
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_eus/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_eus/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_lisp: camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_lisp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_eus: camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-.PHONY : camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_nodejs: camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_cpp: camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_eus: camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_eus
-
-# fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_py: camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-.PHONY : roscpp_generate_messages_py
-
-# fast build rule for target.
-roscpp_generate_messages_py/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_py.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/image_view_gencfg.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/image_view_gencfg.dir/rule
-.PHONY : camaras/CMakeFiles/image_view_gencfg.dir/rule
-
-# Convenience name for target.
-image_view_gencfg: camaras/CMakeFiles/image_view_gencfg.dir/rule
-
-.PHONY : image_view_gencfg
-
-# fast build rule for target.
-image_view_gencfg/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/image_view_gencfg.dir/build.make camaras/CMakeFiles/image_view_gencfg.dir/build
-.PHONY : image_view_gencfg/fast
-
-# Convenience name for target.
 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
 .PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -494,27 +194,12 @@ dynamic_reconfigure_generate_messages_py: camaras/CMakeFiles/dynamic_reconfigure
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_py/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
-camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_lisp: camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
 .PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -524,42 +209,102 @@ dynamic_reconfigure_generate_messages_nodejs: camaras/CMakeFiles/dynamic_reconfi
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_nodejs/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_nodejs/fast
 
 # Convenience name for target.
-camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_cpp: camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+std_msgs_generate_messages_cpp: camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_cpp
 
 # fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
+std_msgs_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
+.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-std_msgs_generate_messages_py: camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+geometry_msgs_generate_messages_py: camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
 
-.PHONY : std_msgs_generate_messages_py
+.PHONY : geometry_msgs_generate_messages_py
 
 # fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
+geometry_msgs_generate_messages_py/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
+.PHONY : geometry_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_cpp: camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+.PHONY : roscpp_generate_messages_cpp
+
+# fast build rule for target.
+roscpp_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_nodejs: camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+geometry_msgs_generate_messages_nodejs/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
+.PHONY : geometry_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
+.PHONY : camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
+
+# Convenience name for target.
+dynamic_reconfigure_gencfg: camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
+
+.PHONY : dynamic_reconfigure_gencfg
+
+# fast build rule for target.
+dynamic_reconfigure_gencfg/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
+.PHONY : dynamic_reconfigure_gencfg/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_lisp: camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_lisp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_lisp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
+.PHONY : geometry_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
 .PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -569,57 +314,27 @@ geometry_msgs_generate_messages_eus: camaras/CMakeFiles/geometry_msgs_generate_m
 
 # fast build rule for target.
 geometry_msgs_generate_messages_eus/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
 .PHONY : geometry_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-std_msgs_generate_messages_nodejs: camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+std_msgs_generate_messages_lisp: camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : std_msgs_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_lisp
 
 # fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-.PHONY : std_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-.PHONY : camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_eus: camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-.PHONY : roscpp_generate_messages_eus
-
-# fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_eus.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
-
-# Convenience name for target.
-camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_eus: camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
+std_msgs_generate_messages_lisp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 .PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -629,27 +344,162 @@ rosgraph_msgs_generate_messages_lisp: camaras/CMakeFiles/rosgraph_msgs_generate_
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-rosgraph_msgs_generate_messages_nodejs: camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+sensor_msgs_generate_messages_py: camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
 
-.PHONY : rosgraph_msgs_generate_messages_nodejs
+.PHONY : sensor_msgs_generate_messages_py
 
 # fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+sensor_msgs_generate_messages_py/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
+.PHONY : sensor_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
+.PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+dynamic_reconfigure_generate_messages_cpp: camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
+
+.PHONY : dynamic_reconfigure_generate_messages_cpp
+
+# fast build rule for target.
+dynamic_reconfigure_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_nodejs: camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+sensor_msgs_generate_messages_nodejs/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
+.PHONY : sensor_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_cpp: camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_cpp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
+.PHONY : sensor_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_eus: camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_eus
+
+# fast build rule for target.
+sensor_msgs_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
+.PHONY : sensor_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_nodejs: camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+.PHONY : camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_lisp: camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_lisp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_lisp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make camaras/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
+.PHONY : sensor_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_cpp: camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_py: camaras/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_eus: camaras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_eus.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
 
 # Convenience name for target.
 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
 .PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -659,8 +509,158 @@ dynamic_reconfigure_generate_messages_lisp: camaras/CMakeFiles/dynamic_reconfigu
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_lisp/fast:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_lisp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_lisp: camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+
+.PHONY : roscpp_generate_messages_lisp
+
+# fast build rule for target.
+roscpp_generate_messages_lisp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_eus: camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_eus: camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule
+.PHONY : camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_py: camaras/CMakeFiles/roscpp_generate_messages_py.dir/rule
+
+.PHONY : roscpp_generate_messages_py
+
+# fast build rule for target.
+roscpp_generate_messages_py/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_py.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_nodejs: camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_nodejs: camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make camaras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_py: camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_py
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_py/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make camaras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+.PHONY : camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_cpp: camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_cpp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make camaras/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
+.PHONY : geometry_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
+.PHONY : camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+dynamic_reconfigure_generate_messages_eus: camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
+
+.PHONY : dynamic_reconfigure_generate_messages_eus
+
+# fast build rule for target.
+dynamic_reconfigure_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make camaras/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_eus/fast
+
+# Convenience name for target.
+camaras/CMakeFiles/image_view_gencfg.dir/rule:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camaras/CMakeFiles/image_view_gencfg.dir/rule
+.PHONY : camaras/CMakeFiles/image_view_gencfg.dir/rule
+
+# Convenience name for target.
+image_view_gencfg: camaras/CMakeFiles/image_view_gencfg.dir/rule
+
+.PHONY : image_view_gencfg
+
+# fast build rule for target.
+image_view_gencfg/fast:
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/image_view_gencfg.dir/build.make camaras/CMakeFiles/image_view_gencfg.dir/build
+.PHONY : image_view_gencfg/fast
 
 src/main.o: src/main.cpp.o
 
@@ -668,7 +668,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/main.cpp.o
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -677,7 +677,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/main.cpp.i
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -686,7 +686,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/main.cpp.s
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/tcamcamera.o: src/tcamcamera.cpp.o
@@ -695,7 +695,7 @@ src/tcamcamera.o: src/tcamcamera.cpp.o
 
 # target to build an object file
 src/tcamcamera.cpp.o:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.o
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.o
 .PHONY : src/tcamcamera.cpp.o
 
 src/tcamcamera.i: src/tcamcamera.cpp.i
@@ -704,7 +704,7 @@ src/tcamcamera.i: src/tcamcamera.cpp.i
 
 # target to preprocess a source file
 src/tcamcamera.cpp.i:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.i
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.i
 .PHONY : src/tcamcamera.cpp.i
 
 src/tcamcamera.s: src/tcamcamera.cpp.s
@@ -713,7 +713,7 @@ src/tcamcamera.s: src/tcamcamera.cpp.s
 
 # target to generate assembly for a file
 src/tcamcamera.cpp.s:
-	cd /home/pi/tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.s
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(MAKE) -f camaras/CMakeFiles/camaras_node.dir/build.make camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.s
 .PHONY : src/tcamcamera.cpp.s
 
 # Help Target
@@ -723,45 +723,45 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... camaras_node"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... geometry_msgs_generate_messages_cpp"
-	@echo "... roscpp_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... edit_cache"
-	@echo "... dynamic_reconfigure_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... dynamic_reconfigure_gencfg"
-	@echo "... dynamic_reconfigure_generate_messages_eus"
-	@echo "... geometry_msgs_generate_messages_lisp"
-	@echo "... std_msgs_generate_messages_eus"
-	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... test"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... roscpp_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... roscpp_generate_messages_py"
-	@echo "... image_view_gencfg"
+	@echo "... camaras_node"
 	@echo "... dynamic_reconfigure_generate_messages_py"
-	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_nodejs"
-	@echo "... sensor_msgs_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_py"
+	@echo "... install"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... geometry_msgs_generate_messages_py"
+	@echo "... roscpp_generate_messages_cpp"
+	@echo "... geometry_msgs_generate_messages_nodejs"
+	@echo "... dynamic_reconfigure_gencfg"
+	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... geometry_msgs_generate_messages_eus"
-	@echo "... std_msgs_generate_messages_nodejs"
-	@echo "... rebuild_cache"
-	@echo "... roscpp_generate_messages_eus"
-	@echo "... install/local"
-	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... sensor_msgs_generate_messages_py"
+	@echo "... dynamic_reconfigure_generate_messages_cpp"
+	@echo "... sensor_msgs_generate_messages_nodejs"
+	@echo "... sensor_msgs_generate_messages_cpp"
+	@echo "... install/local"
+	@echo "... sensor_msgs_generate_messages_eus"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... sensor_msgs_generate_messages_lisp"
+	@echo "... rebuild_cache"
+	@echo "... rosgraph_msgs_generate_messages_cpp"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... roscpp_generate_messages_eus"
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_lisp"
+	@echo "... std_msgs_generate_messages_eus"
+	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... roscpp_generate_messages_py"
+	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... geometry_msgs_generate_messages_cpp"
+	@echo "... dynamic_reconfigure_generate_messages_eus"
+	@echo "... image_view_gencfg"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
@@ -779,6 +779,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/pi/tesis/camaras_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ubuntu/Tesis/camaras_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pi/tesis/camaras_ws/src/camaras/src/main.cpp" "/home/pi/tesis/camaras_ws/build/camaras/CMakeFiles/camaras_node.dir/src/main.cpp.o"
-  "/home/pi/tesis/camaras_ws/src/camaras/src/tcamcamera.cpp" "/home/pi/tesis/camaras_ws/build/camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.o"
+  "/home/ubuntu/Tesis/camaras_ws/src/camaras/src/main.cpp" "/home/ubuntu/Tesis/camaras_ws/build/camaras/CMakeFiles/camaras_node.dir/src/main.cpp.o"
+  "/home/ubuntu/Tesis/camaras_ws/src/camaras/src/tcamcamera.cpp" "/home/ubuntu/Tesis/camaras_ws/build/camaras/CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -22,10 +22,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/gstreamer-1.0"
   "/usr/include/orc-0.4"
   "/usr/include/glib-2.0"
-  "/usr/lib/aarch64-linux-gnu/glib-2.0/include"
+  "/usr/lib/arm-linux-gnueabihf/glib-2.0/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
-  "/home/pi/tesis/camaras_ws/src/camaras/include/camaras"
+  "/home/ubuntu/Tesis/camaras_ws/src/camaras/include/camaras"
   "/usr/include/opencv4"
   )
 

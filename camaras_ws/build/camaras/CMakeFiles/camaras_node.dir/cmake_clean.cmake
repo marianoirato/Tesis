@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/pi/tesis/camaras_ws/devel/lib/camaras/camaras_node"
-  "/home/pi/tesis/camaras_ws/devel/lib/camaras/camaras_node.pdb"
+  "/home/ubuntu/Tesis/camaras_ws/devel/lib/camaras/camaras_node"
+  "/home/ubuntu/Tesis/camaras_ws/devel/lib/camaras/camaras_node.pdb"
   "CMakeFiles/camaras_node.dir/src/main.cpp.o"
   "CMakeFiles/camaras_node.dir/src/tcamcamera.cpp.o"
 )

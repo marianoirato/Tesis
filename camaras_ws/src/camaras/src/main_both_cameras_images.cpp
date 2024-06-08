@@ -70,42 +70,21 @@ GstFlowReturn new_frame_cb(GstAppSink *appsink, gpointer data)
     return GST_FLOW_OK;
 }
 
-void merge_and_publish_frames(CUSTOMDATA &CustomData1, CUSTOMDATA &CustomData2, image_transport::Publisher &image_pub)
+void process_frame(CUSTOMDATA &CustomData, image_transport::Publisher &image_pub, const std::string &camera_name)
 {
     while (ros::ok())
     {
-        if (CustomData1.ready_to_show_frame.load() && CustomData2.ready_to_show_frame.load())
+        if (CustomData.ready_to_show_frame.load())
         {
-            cv::Mat frame1_copy, frame2_copy;
+            cv::Mat frame_copy;
             {
-                std::lock_guard<std::mutex> lock1(CustomData1.frame_mutex);
-                frame1_copy = CustomData1.frame.clone();
-            }
-            {
-                std::lock_guard<std::mutex> lock2(CustomData2.frame_mutex);
-                frame2_copy = CustomData2.frame.clone();
+                std::lock_guard<std::mutex> lock(CustomData.frame_mutex);
+                frame_copy = CustomData.frame.clone();
             }
 
-            // Ensure both frames have the same dimensions
-            if (frame1_copy.size() != frame2_copy.size())
-            {
-                cv::resize(frame2_copy, frame2_copy, frame1_copy.size());
-            }
-
-            // Create a new image with double the width to concatenate frames horizontally
-            cv::Mat merged_frame(frame1_copy.rows, frame1_copy.cols + frame2_copy.cols, frame1_copy.type());
-
-            // Copy frames to the merged frame
-            frame1_copy.copyTo(merged_frame(cv::Rect(0, 0, frame1_copy.cols, frame1_copy.rows)));
-            frame2_copy.copyTo(merged_frame(cv::Rect(frame1_copy.cols, 0, frame2_copy.cols, frame2_copy.rows)));
-
-            sensor_msgs::ImagePtr image = cv_bridge::CvImage(std_msgs::Header(), "bgr8", merged_frame).toImageMsg();
+            sensor_msgs::ImagePtr image = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame_copy).toImageMsg();
             image_pub.publish(image);
-
-            CustomData1.ready_to_show_frame.store(false);
-            CustomData2.ready_to_show_frame.store(false);
-            CustomData1.ready_to_process_frame.store(true);
-            CustomData2.ready_to_process_frame.store(true);
+            CustomData.ready_to_show_frame.store(false);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(17)); // Aim for ~30 fps
     }
@@ -116,7 +95,8 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "camaras_node");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
-    image_transport::Publisher image_pub = it.advertise("/merged_image", 1);
+    image_transport::Publisher image_pub1 = it.advertise("/camera1", 1);
+    image_transport::Publisher image_pub2 = it.advertise("/camera2", 1);
 
     gst_init(&argc, &argv);
 
@@ -152,20 +132,23 @@ int main(int argc, char **argv)
     cam2.set_new_frame_callback(new_frame_cb, &CustomData2);
     cam2.start();
 
-    std::thread merge_thread(merge_and_publish_frames, std::ref(CustomData1), std::ref(CustomData2), std::ref(image_pub));
+    std::thread frame_thread1(process_frame, std::ref(CustomData1), std::ref(image_pub1), "Camera 1");
+    std::thread frame_thread2(process_frame, std::ref(CustomData2), std::ref(image_pub2), "Camera 2");
 
-    ros::Rate rate(60); // 60 Hz
-   
     while (ros::ok())
     {
-        ros::spinOnce(); // Process ROS callbacks
-        rate.sleep();    // Sleep for the remainder of the loop cycle to maintain 30 Hz
+        CustomData1.ready_to_process_frame.store(true);
+        CustomData2.ready_to_process_frame.store(true);
+        ros::spinOnce();
     }
-    
-    // Cleanup
+
+    printf("Press Enter to end the program");
+    getchar();
+
     cam1.stop();
     cam2.stop();
-    merge_thread.join();
+    frame_thread1.join();
+    frame_thread2.join();
 
     return 0;
 }

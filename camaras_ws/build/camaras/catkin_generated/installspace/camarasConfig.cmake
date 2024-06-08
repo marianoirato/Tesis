@@ -67,14 +67,14 @@ set(camaras_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(camaras_SOURCE_PREFIX /home/pi/tesis/camaras_ws/src/camaras)
-  set(camaras_DEVEL_PREFIX /home/pi/tesis/camaras_ws/devel)
+  set(camaras_SOURCE_PREFIX /home/ubuntu/Tesis/camaras_ws/src/camaras)
+  set(camaras_DEVEL_PREFIX /home/ubuntu/Tesis/camaras_ws/devel)
   set(camaras_INSTALL_PREFIX "")
   set(camaras_PREFIX ${camaras_DEVEL_PREFIX})
 else()
   set(camaras_SOURCE_PREFIX "")
   set(camaras_DEVEL_PREFIX "")
-  set(camaras_INSTALL_PREFIX /home/pi/tesis/camaras_ws/install)
+  set(camaras_INSTALL_PREFIX /home/ubuntu/Tesis/camaras_ws/install)
   set(camaras_PREFIX ${camaras_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/pi/tesis/camaras_ws/install/lib;/home/pi/tesis/camaras_ws/devel/lib;/home/pi/catkin_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ubuntu/Tesis/camaras_ws/install/lib;/home/ubuntu/Tesis/camaras_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -185,7 +185,7 @@ foreach(t ${camaras_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "")
+set(depends "cv_bridge;image_transport;image_view;roscpp;rospy")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

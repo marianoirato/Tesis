@@ -1,5 +1,3 @@
-
-
 #include "tcamcamera.h"
 #include "tcamprop.h"
 
@@ -630,8 +628,7 @@ TcamCamera::new_frame_callback(GstAppSink *appsink, gpointer data)
 }
 
 void
-TcamCamera::set_new_frame_callback(std::function<GstFlowReturn(GstAppSink *appsink, gpointer data)>callback,
-                                   gpointer data)
+TcamCamera::set_new_frame_callback(std::function<GstFlowReturn(GstAppSink *appsink, gpointer data)>callback, gpointer data)
 {
     callback_ = callback;
     callback_data_ = data;

@@ -1,8 +1,8 @@
-# Install script for directory: /home/pi/tesis/camaras_ws/src/camaras
+# Install script for directory: /home/ubuntu/Tesis/camaras_ws/src/camaras
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/pi/tesis/camaras_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/Tesis/camaras_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/pi/tesis/camaras_ws/build/camaras/catkin_generated/installspace/camaras.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/Tesis/camaras_ws/build/camaras/catkin_generated/installspace/camaras.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camaras/cmake" TYPE FILE FILES
-    "/home/pi/tesis/camaras_ws/build/camaras/catkin_generated/installspace/camarasConfig.cmake"
-    "/home/pi/tesis/camaras_ws/build/camaras/catkin_generated/installspace/camarasConfig-version.cmake"
+    "/home/ubuntu/Tesis/camaras_ws/build/camaras/catkin_generated/installspace/camarasConfig.cmake"
+    "/home/ubuntu/Tesis/camaras_ws/build/camaras/catkin_generated/installspace/camarasConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camaras" TYPE FILE FILES "/home/pi/tesis/camaras_ws/src/camaras/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camaras" TYPE FILE FILES "/home/ubuntu/Tesis/camaras_ws/src/camaras/package.xml")
 endif()
 

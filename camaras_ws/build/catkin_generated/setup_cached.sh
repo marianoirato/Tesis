@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/pi/tesis/camaras_ws/build'
+export PWD='/home/ubuntu/Tesis/camaras_ws/build'
