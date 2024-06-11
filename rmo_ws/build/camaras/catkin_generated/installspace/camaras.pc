@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/Tesis/rmo_ws/install
+
+Name: camaras
+Description: Description of camaras
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: cv_bridge image_transport image_view roscpp rospy

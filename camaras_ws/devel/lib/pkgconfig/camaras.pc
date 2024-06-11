@@ -1,8 +1,0 @@
-prefix=/home/ubuntu/Tesis/camaras_ws/devel
-
-Name: camaras
-Description: Description of camaras
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: cv_bridge image_transport image_view roscpp rospy

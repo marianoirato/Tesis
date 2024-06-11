@@ -1,2 +1,2 @@
-my_robot_controller
--DCATKIN_DEVEL_PREFIX=/home/ubuntu/rmo_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/rmo_ws/install -G Unix Makefiles
+camaras:my_robot_controller
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/Tesis/rmo_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/Tesis/rmo_ws/install -G Unix Makefiles

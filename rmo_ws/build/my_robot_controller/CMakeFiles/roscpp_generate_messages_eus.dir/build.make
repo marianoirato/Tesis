@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/rmo_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/Tesis/rmo_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/rmo_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/Tesis/rmo_ws/build
 
 # Utility rule file for roscpp_generate_messages_eus.
 
@@ -63,10 +63,10 @@ my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/build: roscpp_ge
 .PHONY : my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/build
 
 my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/clean:
-	cd /home/ubuntu/rmo_ws/build/my_robot_controller && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_eus.dir/cmake_clean.cmake
+	cd /home/ubuntu/Tesis/rmo_ws/build/my_robot_controller && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_eus.dir/cmake_clean.cmake
 .PHONY : my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/clean
 
 my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/depend:
-	cd /home/ubuntu/rmo_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/rmo_ws/src /home/ubuntu/rmo_ws/src/my_robot_controller /home/ubuntu/rmo_ws/build /home/ubuntu/rmo_ws/build/my_robot_controller /home/ubuntu/rmo_ws/build/my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Tesis/rmo_ws/src /home/ubuntu/Tesis/rmo_ws/src/my_robot_controller /home/ubuntu/Tesis/rmo_ws/build /home/ubuntu/Tesis/rmo_ws/build/my_robot_controller /home/ubuntu/Tesis/rmo_ws/build/my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : my_robot_controller/CMakeFiles/roscpp_generate_messages_eus.dir/depend
 

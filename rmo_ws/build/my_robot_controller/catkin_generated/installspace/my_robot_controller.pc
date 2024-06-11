@@ -1,4 +1,4 @@
-prefix=/home/ubuntu/rmo_ws/install
+prefix=/home/ubuntu/Tesis/rmo_ws/install
 
 Name: my_robot_controller
 Description: Description of my_robot_controller

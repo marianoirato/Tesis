@@ -1,8 +1,8 @@
-# Install script for directory: /home/ubuntu/rmo_ws/src/my_robot_controller
+# Install script for directory: /home/ubuntu/Tesis/rmo_ws/src/my_robot_controller
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/rmo_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/Tesis/rmo_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,18 +38,18 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/rmo_ws/build/my_robot_controller/catkin_generated/installspace/my_robot_controller.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/Tesis/rmo_ws/build/my_robot_controller/catkin_generated/installspace/my_robot_controller.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_robot_controller/cmake" TYPE FILE FILES
-    "/home/ubuntu/rmo_ws/build/my_robot_controller/catkin_generated/installspace/my_robot_controllerConfig.cmake"
-    "/home/ubuntu/rmo_ws/build/my_robot_controller/catkin_generated/installspace/my_robot_controllerConfig-version.cmake"
+    "/home/ubuntu/Tesis/rmo_ws/build/my_robot_controller/catkin_generated/installspace/my_robot_controllerConfig.cmake"
+    "/home/ubuntu/Tesis/rmo_ws/build/my_robot_controller/catkin_generated/installspace/my_robot_controllerConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_robot_controller" TYPE FILE FILES "/home/ubuntu/rmo_ws/src/my_robot_controller/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_robot_controller" TYPE FILE FILES "/home/ubuntu/Tesis/rmo_ws/src/my_robot_controller/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -59,7 +59,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_robot_controller/robot_uart_control"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_robot_controller" TYPE EXECUTABLE FILES "/home/ubuntu/rmo_ws/devel/lib/my_robot_controller/robot_uart_control")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_robot_controller" TYPE EXECUTABLE FILES "/home/ubuntu/Tesis/rmo_ws/devel/lib/my_robot_controller/robot_uart_control")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_robot_controller/robot_uart_control" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_robot_controller/robot_uart_control")
     file(RPATH_CHANGE
