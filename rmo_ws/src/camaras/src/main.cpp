@@ -80,6 +80,32 @@ void process_frame(CUSTOMDATA &customData, image_transport::Publisher &image_pub
     }
 }
 
+void cameras_setup(std::vector<std::unique_ptr<TcamCamera>> &cameras, std::vector<CUSTOMDATA> &custom_data)
+{
+    // Get device list
+    std::vector<CameraInfo> camera_list = get_device_list();
+    if (camera_list.size() < 2)
+    {
+        printf("Conectar las dos camaras.\n");
+        exit(1);
+    }
+
+    // Initialize cameras
+    for (int i = 0; i < 2; ++i)
+    {
+        custom_data[i].ready_to_process_frame = true;
+        custom_data[i].ready_to_show_frame = false;
+
+        cameras.emplace_back(std::make_unique<TcamCamera>(camera_list[i].serial));
+        cameras.back()->set_capture_format("BGRx", FrameSize{WIDTH, HEIGHT}, FrameRate{FPS, 1});
+        cameras.back()->set_new_frame_callback(new_frame_cb, &custom_data[i]);
+        cameras.back()->start();
+
+        // Print the serial numbers of the cameras
+        std::cout << "Camera " << i+1 << " Serial Number: " << camera_list[i].serial << std::endl;
+    }
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "camaras_node");
@@ -90,58 +116,32 @@ int main(int argc, char **argv)
 
     gst_init(&argc, &argv);
 
-    CUSTOMDATA CustomData1;
-    CustomData1.ready_to_process_frame = true;
-    CustomData1.ready_to_show_frame = false;
+    std::vector<CUSTOMDATA> custom_data(2);
+    std::vector<std::unique_ptr<TcamCamera>> cameras;
 
-    CUSTOMDATA CustomData2;
-    CustomData2.ready_to_process_frame = true;
-    CustomData2.ready_to_show_frame = false;
-
-    //INICIALIZACION DE LAS CAMARAS
-    std::vector<CameraInfo> camera_list = get_device_list();
-    if (camera_list.size() < 2)
-    {
-        printf("Conectar las dos camaras.\n");
-    }
-
-    std::string serialnumber1 = camera_list[0].serial;
-    std::string serialnumber2 = camera_list[1].serial;
-
-    // Print the serial numbers of the cameras
-    std::cout << "Camera 1 Serial Number: " << serialnumber1 << std::endl;
-    std::cout << "Camera 2 Serial Number: " << serialnumber2 << std::endl;
-
-    TcamCamera cam1(serialnumber1);
-    cam1.set_capture_format("BGRx", FrameSize{WIDTH, HEIGHT}, FrameRate{FPS, 1});
-    cam1.set_new_frame_callback(new_frame_cb, &CustomData1);
-    cam1.start();
-
-    TcamCamera cam2(serialnumber2);
-    cam2.set_capture_format("BGRx", FrameSize{WIDTH, HEIGHT}, FrameRate{FPS, 1});
-    cam2.set_new_frame_callback(new_frame_cb, &CustomData2);
-    cam2.start();
+    cameras_setup(cameras, custom_data);
 
     ros::Rate loop_rate(FPS * 2);
 
     while (ros::ok())
     {
-        CustomData1.ready_to_process_frame = true;
-        CustomData2.ready_to_process_frame = true;
+        custom_data[0].ready_to_process_frame = true;
+        custom_data[1].ready_to_process_frame = true;
         ros::spinOnce();
         loop_rate.sleep();
 
-        process_frame(CustomData1, image_pub1);
-        process_frame(CustomData2, image_pub2);
+        process_frame(custom_data[0], image_pub1);
+        process_frame(custom_data[1], image_pub2);
     }
 
     printf("Press Enter to end the program");
     getchar();
 
-    cam1.stop();
-    cam2.stop();
+    for (auto &cam : cameras)
+    {
+        cam->stop();
+    }
 
     return 0;
 }
-
 
