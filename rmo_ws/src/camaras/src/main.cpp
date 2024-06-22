@@ -15,14 +15,16 @@
 #include "cv_bridge/cv_bridge.h"
 #include "image_transport/image_transport.h"
 
+#define WIDTH  640
+#define HEIGHT 480
+#define FPS 30
 using namespace gsttcam;
-
+using namespace std;
 typedef struct
 {
-    std::atomic<bool> ready_to_process_frame;
-    std::atomic<bool> ready_to_show_frame;
-    cv::Mat frame;
-    std::mutex frame_mutex; // Mutex for synchronizing frame access
+   bool ready_to_process_frame;
+   bool ready_to_show_frame;
+   cv::Mat frame;
 } CUSTOMDATA;
 
 GstFlowReturn new_frame_cb(GstAppSink *appsink, gpointer data)
@@ -32,7 +34,7 @@ GstFlowReturn new_frame_cb(GstAppSink *appsink, gpointer data)
 
     CUSTOMDATA *pCustomData = (CUSTOMDATA*)data;
 
-    if (!pCustomData->ready_to_process_frame.load())
+    if (!pCustomData->ready_to_process_frame)
     {
         return GST_FLOW_OK;
     }
@@ -54,13 +56,13 @@ GstFlowReturn new_frame_cb(GstAppSink *appsink, gpointer data)
             gst_structure_get_int(str, "height", &height);
 
             cv::Mat tmp_frame(height, width, CV_8UC4, (void*)info.data);
-            {
-                std::lock_guard<std::mutex> lock(pCustomData->frame_mutex);
-                cv::cvtColor(tmp_frame, pCustomData->frame, cv::COLOR_BGRA2BGR);
-            }
-
-            pCustomData->ready_to_show_frame.store(true);
-            pCustomData->ready_to_process_frame.store(false);
+            cv::cvtColor(tmp_frame, pCustomData->frame, cv::COLOR_BGRA2BGR);
+            pCustomData->ready_to_show_frame = true;
+            pCustomData->ready_to_process_frame = false;
+        }
+        else
+        {
+            cout<< "asd"<<endl;
         }
     }
 
@@ -68,30 +70,6 @@ GstFlowReturn new_frame_cb(GstAppSink *appsink, gpointer data)
     gst_sample_unref(sample);
 
     return GST_FLOW_OK;
-}
-
-void process_frame(CUSTOMDATA &CustomData, image_transport::Publisher &image_pub, const std::string &camera_name)
-{
-    while (ros::ok())
-    {
-        if (CustomData.ready_to_show_frame.load())
-        {
-            cv::Mat frame_copy;
-            {
-                std::lock_guard<std::mutex> lock(CustomData.frame_mutex);
-                frame_copy = CustomData.frame.clone();
-            }
-
-            std::vector<uchar> buf;
-            cv::imencode(".jpg", frame_copy, buf);  // Compress the image
-            cv::Mat compressed_frame = cv::imdecode(buf, cv::IMREAD_COLOR);
-
-            sensor_msgs::ImagePtr image = cv_bridge::CvImage(std_msgs::Header(), "bgr8", compressed_frame).toImageMsg();
-            image_pub.publish(image);
-            CustomData.ready_to_show_frame.store(false);
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(32));
-    }
 }
 
 int main(int argc, char **argv)
@@ -105,18 +83,21 @@ int main(int argc, char **argv)
     gst_init(&argc, &argv);
 
     CUSTOMDATA CustomData1;
-    CustomData1.ready_to_process_frame.store(true);
-    CustomData1.ready_to_show_frame.store(false);
+    CustomData1.ready_to_process_frame = true;
+    CustomData1.ready_to_show_frame = false;
 
     CUSTOMDATA CustomData2;
-    CustomData2.ready_to_process_frame.store(true);
-    CustomData2.ready_to_show_frame.store(false);
+    CustomData2.ready_to_process_frame = true;
+    CustomData2.ready_to_show_frame = false;
 
+    ros::Rate loop_rate(10);
+
+// { //INICIALIZACION DE LAS CAMARAS
     std::vector<CameraInfo> camera_list = get_device_list();
     if (camera_list.size() < 2)
     {
         printf("At least two cameras are required.\n");
-        return 1;
+        //return 1;
     }
 
     std::string serialnumber1 = camera_list[0].serial;
@@ -127,32 +108,55 @@ int main(int argc, char **argv)
     std::cout << "Camera 2 Serial Number: " << serialnumber2 << std::endl;
 
     TcamCamera cam1(serialnumber1);
-    cam1.set_capture_format("BGRx", FrameSize{640, 480}, FrameRate{30, 1});
+    cam1.set_capture_format("BGRx", FrameSize{WIDTH, HEIGHT}, FrameRate{FPS, 1});
     cam1.set_new_frame_callback(new_frame_cb, &CustomData1);
     cam1.start();
 
     TcamCamera cam2(serialnumber2);
-    cam2.set_capture_format("BGRx", FrameSize{640, 480}, FrameRate{30, 1});
+    cam2.set_capture_format("BGRx", FrameSize{WIDTH, HEIGHT}, FrameRate{FPS, 1});
     cam2.set_new_frame_callback(new_frame_cb, &CustomData2);
     cam2.start();
-
-    std::thread frame_thread1(process_frame, std::ref(CustomData1), std::ref(image_pub1), "Camera 1");
-    std::thread frame_thread2(process_frame, std::ref(CustomData2), std::ref(image_pub2), "Camera 2");
+// }
 
     while (ros::ok())
     {
-        CustomData1.ready_to_process_frame.store(true);
-        CustomData2.ready_to_process_frame.store(true);
+        CustomData1.ready_to_process_frame = true;
+        CustomData2.ready_to_process_frame = true;
         ros::spinOnce();
+        loop_rate.sleep();
+
+        if (CustomData1.ready_to_show_frame)
+        {
+            cv::Mat frame_copy = CustomData1.frame.clone();
+
+            std::vector<uchar> buf;
+            cv::imencode(".jpg", frame_copy, buf);  // Compress the image
+            cv::Mat compressed_frame = cv::imdecode(buf, cv::IMREAD_COLOR);
+
+            sensor_msgs::ImagePtr image1 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", compressed_frame).toImageMsg();
+            image_pub1.publish(image1);
+            CustomData1.ready_to_show_frame = false;
+        }
+        
+        if (CustomData2.ready_to_show_frame)
+        {
+            cv::Mat frame_copy = CustomData2.frame.clone();
+
+            std::vector<uchar> buf;
+            cv::imencode(".jpg", frame_copy, buf);  // Compress the image
+            cv::Mat compressed_frame = cv::imdecode(buf, cv::IMREAD_COLOR);
+
+            sensor_msgs::ImagePtr image2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", compressed_frame).toImageMsg();
+            image_pub2.publish(image2);
+            CustomData2.ready_to_show_frame = false;
+        }
     }
 
     printf("Press Enter to end the program");
     getchar();
 
     cam1.stop();
-    cam2.stop();
-    frame_thread1.join();
-    frame_thread2.join();
+    //cam2.stop();
 
     return 0;
 }
