@@ -1,182 +1,161 @@
 #include <iostream>
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
 #include <ros/ros.h>
-#include <std_msgs/String.h>
 #include <sensor_msgs/Joy.h>
-#include <cmath>
 #include <vector>
+#include <deque>
+#include <cmath>
 
-// Utiliza el namespace de Boost.Asio
-using namespace boost::asio;
 using namespace std;
 
-// Estructura de datos
-struct DataPacket {
+// Define the structure of the received frame
+typedef struct {
+    uint32_t start;         // Start mark of the frame
+    uint32_t timestamp;     // Counter indicating the ms in which the measurement was made
+    float u_m[4];           // Angular velocity on the axis of each motor
+    int16_t a_m[3];         // Linear acceleration measured on each axis
+    int16_t phi_m[3];       // Rotation on each axis
+    uint16_t i_m;           // Current measured in each motor
+    uint16_t v_bat;         // Battery voltage
+    uint16_t status;        // Status
+    uint8_t crc;            // Frame checksum
+    uint8_t stop;           // End mark of the frame
+} s_Trama_rx;
+
+// Define the union for the received frame
+typedef union {
+    s_Trama_rx data;
+    char string[sizeof(s_Trama_rx)]; // Total size of the structure s_Trama_rx in bytes
+} u_Trama_rx;
+
+// Define the DataPacket structure
+typedef struct {
+    float Vx;  // Linear velocity on the x-axis
+    float Vy;  // Linear velocity on the y-axis
+    float Wz;  // Angular velocity
+    uint8_t crc; // Checksum
+} DataPacket;
+
+// Define the Vel_espacial structure
+typedef struct {
     float Vx;
     float Vy;
     float Wz;
-    uint8_t crc;
-};
+} Vel_espacial;
+
+// Global variables for serial communication and sending control
+boost::asio::io_service io;
+boost::asio::serial_port serial(io);
+bool send_data = false;
 DataPacket data_global;
 
-union PacketUnion {
-    DataPacket packet;
-    uint8_t bytes[sizeof(DataPacket)];
-};
+// Buffer to store serial data
+deque<uint8_t> serial_buffer;
 
-io_service io;
-serial_port serial(io);
+// Function to generate velocity ramp
+void generarRampaVelocidad(Vel_espacial* vel_inicial, Vel_espacial* vel_final, 
+                           vector<float>& rampa_vx, vector<float>& rampa_vy, vector<float>& rampa_wz) {
+    // Example implementation
+    rampa_vx.push_back(vel_final->Vx);
+    rampa_vy.push_back(vel_final->Vy);
+    rampa_wz.push_back(vel_final->Wz);
+}
 
-uint8_t enviar = 0;
+void leerTrama() {
+    u_Trama_rx trama_rx;
+    bool trama_valida = false;
 
-// Estructura de Vel_espacial
-struct Vel_espacial {
-    float vx;
-    float vy;
-    float wz;
-};
+    if (serial.is_open()) {
+        boost::asio::streambuf buf;
+        boost::asio::read_until(serial, buf, ']');
+        std::istream is(&buf);
+        std::string serialBuffer((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
 
-// Función generarRampaVelocidad
-void generarRampaVelocidad(Vel_espacial* v_inicial, Vel_espacial* v_final,
-                           std::vector<float>& rampa_vx,
-                           std::vector<float>& rampa_vy,
-                           std::vector<float>& rampa_wz) {
-    float a_max = 0.5; // [m/s^2]
-    int data_freq = 20; // [ms] periodo con el que se envian los datos de la rampa
-    float t_step = data_freq / 1000.0;
-    float Delta_t = 0;
-    int N = 0;
-    float vel_inicial = 0, vel_final = 0;
+        int i_inicio = serialBuffer.find('[');
+        int i_final  = serialBuffer.find(']', i_inicio);
 
-    if (v_inicial->vx != v_final->vx) {
-        vel_inicial = v_inicial->vx;
-        vel_final = v_final->vx;
-    } else if (v_inicial->vy != v_final->vy) {
-        vel_inicial = v_inicial->vy;
-        vel_final = v_final->vy;
-    } else if (v_inicial->wz != v_final->wz) {
-        vel_inicial = v_inicial->wz;
-        vel_final = v_final->wz;
-    }
+        while (i_inicio >= 0 && i_final >= 0) {
+            if (i_final - i_inicio == sizeof(s_Trama_rx) - 1) {
+                trama_valida = true;
+                memcpy(trama_rx.string, serialBuffer.data() + i_inicio, sizeof(s_Trama_rx));
+            }
 
-    if (vel_final < vel_inicial) a_max = -a_max;
-    Delta_t = (vel_final - vel_inicial) / a_max;
-    Delta_t = std::round(Delta_t / t_step) * t_step; // me aseguro que el delta sea multiplo de t_step
-    N = Delta_t / t_step + 1;
+            i_inicio = serialBuffer.find('[', i_final);
+            i_final  = serialBuffer.find(']', i_inicio);
+        }
 
-    rampa_vx.assign(N, v_inicial->vx);
-    rampa_vy.assign(N, v_inicial->vy);
-    rampa_wz.assign(N, v_inicial->wz);
-    std::vector<float> rampa(N, 0);
+        if (trama_valida) {
+            float u1 = trama_rx.data.u_m[0];
+            float u2 = trama_rx.data.u_m[1];
+            float u3 = trama_rx.data.u_m[2];
+            float u4 = trama_rx.data.u_m[3];
+                
+            // cout << "Trama_rx: " << trama_rx << endl;
 
-    for (int n = 0; n < N; ++n) {
-        rampa[n] = a_max * t_step * n - a_max * Delta_t + vel_final;
-    }
-
-    if (v_inicial->vx != v_final->vx) {
-        std::copy(rampa.begin(), rampa.end(), rampa_vx.begin());
-    } else if (v_inicial->vy != v_final->vy) {
-        std::copy(rampa.begin(), rampa.end(), rampa_vy.begin());
-    } else if (v_inicial->wz != v_final->wz) {
-        std::copy(rampa.begin(), rampa.end(), rampa_wz.begin());
+            std::cout << "u1: " << u1 << ", u2: " << u2 << ", u3: " << u3 << ", u4: " << u4 << std::endl;
+            std::cout << "i_m: " << trama_rx.data.i_m << ", v_bat: " << trama_rx.data.v_bat << std::endl;
+            std::cout << "a_m[0]: " << trama_rx.data.a_m[0] << ", a_m[1]: " << trama_rx.data.a_m[1] << ", a_m[2]: " << trama_rx.data.a_m[2] << std::endl;
+            std::cout << "phi_m[0]: " << trama_rx.data.phi_m[0] << ", phi_m[1]: " << trama_rx.data.phi_m[1] << ", phi_m[2]: " << trama_rx.data.phi_m[2] << std::endl;
+        }
     }
 }
 
-// Callback para el joystick
-void joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
-{
-    // Mapea los valores de los ejes del joystick
-    float vx = joy->axes[1] / 2.0; // Ajusta la velocidad lineal en el eje x
-    float vy = joy->axes[0] / 2.0; // Ajusta la velocidad lineal en el eje y
-    float wz = joy->axes[3];       // Ajusta la velocidad angular
+// Callback for the joystick
+void joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
+    // Map joystick axis values
+    float vx = joy->axes[1] * 1.5;
+    float vy = joy->axes[0] * 1.5;
+    float wz = joy->axes[3] * 1.5;       // Adjust angular velocity
 
-    static float vx_anterior = 0;
-    static float vy_anterior = 0;
-    static float wz_anterior = 0;
+    if (fabs(vx) < 0.5) vx = 0.0;
+    if (fabs(vy) < 0.5) vy = 0.0;
+    if (fabs(wz) < 0.5) wz = 0.0;
 
-    if(vx <= 0.1 && vx >= -0.1)
-        vx = 0.0;
-    else if(vx <= -0.45)
-        vx = -0.45;
-    else if(vx >= 0.45)
-        vx = 0.45;
-
-    if(vy <= 0.1 && vy >= -0.1)
-        vy = 0.0;
-    else if(vy <= -0.45)
-        vy = -0.45;
-    else if(vy >= 0.45)
-        vy = 0.45;
-
-    if(wz <= 0.1 && wz >= -0.1)
-        wz = 0.0;
-    else if(wz <= -0.9)
-        wz = -0.9;
-    else if(wz >= 0.9)
-        wz = 0.9;
-
-    enviar = 1;
-
-    Vel_espacial vel_inicial = {vx_anterior, vy_anterior, wz_anterior};
+    Vel_espacial vel_inicial = {data_global.Vx, data_global.Vy, data_global.Wz};
     Vel_espacial vel_final = {vx, vy, wz};
 
-    std::vector<float> rampa_vx, rampa_vy, rampa_wz;
+    vector<float> rampa_vx, rampa_vy, rampa_wz;
     generarRampaVelocidad(&vel_inicial, &vel_final, rampa_vx, rampa_vy, rampa_wz);
 
-    // Aquí podrías usar la rampa de velocidad para enviar datos gradualmente
-    // Por simplicidad, vamos a tomar solo el último valor de la rampa para enviar
+    // Update the global data packet
     data_global.Vx = rampa_vx.back();
     data_global.Vy = rampa_vy.back();
     data_global.Wz = rampa_wz.back();
     data_global.crc = 0;
 
-    vx_anterior = vx;
-    vy_anterior = vy;
-    wz_anterior = wz;
+    send_data = true;
 }
 
 int main(int argc, char** argv) {
-    // Inicializa el nodo de ROS
-    PacketUnion packetUnion;
-
     ros::init(argc, argv, "serial_node");
     ros::NodeHandle nh;
     ros::Subscriber sub = nh.subscribe<sensor_msgs::Joy>("joy", 10, joyCallback);
 
     try {
-        serial.open("/dev/ttyAMA0"); // Cambia /dev/ttyUSB0 por el puerto correcto
+        serial.open("/dev/ttyAMA0"); // Change '/dev/ttyAMA0' to the correct serial port
 
-        serial.set_option(serial_port_base::baud_rate(2000000));
-        serial.set_option(serial_port_base::character_size(8));
-        serial.set_option(serial_port_base::parity(serial_port_base::parity::none));
-        serial.set_option(serial_port_base::stop_bits(serial_port_base::stop_bits::one));
-        serial.set_option(serial_port_base::flow_control(serial_port_base::flow_control::none));
+        serial.set_option(boost::asio::serial_port_base::baud_rate(2000000));
+        serial.set_option(boost::asio::serial_port_base::character_size(8));
+        serial.set_option(boost::asio::serial_port_base::parity(boost::asio::serial_port_base::parity::none));
+        serial.set_option(boost::asio::serial_port_base::stop_bits(boost::asio::serial_port_base::stop_bits::one));
+        serial.set_option(boost::asio::serial_port_base::flow_control(boost::asio::serial_port_base::flow_control::none));
 
-        // Definir la velocidad del bucle principal de ROS
-        ros::Rate loop_rate(100);
+        ros::Rate loop_rate(100); // Main loop rate of ROS
 
-        // Bucle principal de ROS
         while (ros::ok()) {
-            ros::spinOnce(); // Procesa los callbacks pendientes
+            ros::spinOnce(); // Process pending callbacks
             loop_rate.sleep();
 
-            if (enviar)
-            {
-                //cout<<"vx: "<< data_global.Vx <<" |vy: "<< data_global.Vy << " |wz"<< data_global.Wz<<endl;
-                //cout << "Union bytes: ";
-                for (size_t i = 0; i < sizeof(packetUnion.bytes); ++i) {
-                    printf("%02x ", packetUnion.bytes[i]);
-                }
-                std::cout << std::endl;
-                packetUnion.packet = data_global;
-                write(serial, boost::asio::buffer(packetUnion.bytes, sizeof(packetUnion.bytes)));
-                enviar = 0;
+            if (send_data) {
+                write(serial, boost::asio::buffer(reinterpret_cast<uint8_t*>(&data_global), sizeof(data_global)));
+                send_data = false;
             }
+
+            leerTrama();
         }
         serial.close();
     } catch (boost::system::system_error& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+        cerr << "Error: " << e.what() << endl;
     }
 
     return 0;
