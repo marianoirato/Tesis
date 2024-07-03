@@ -78,6 +78,17 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -124,17 +135,6 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # The main all target
 all: cmake_check_build_system
 	cd /home/ubuntu/Tesis/rmo_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/Tesis/rmo_ws/build/CMakeFiles /home/ubuntu/Tesis/rmo_ws/build/my_robot_controller/CMakeFiles/progress.marks
@@ -166,6 +166,96 @@ preinstall/fast:
 depend:
 	cd /home/ubuntu/Tesis/rmo_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/robot_info_suscriber.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/robot_info_suscriber.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/robot_info_suscriber.dir/rule
+
+# Convenience name for target.
+robot_info_suscriber: my_robot_controller/CMakeFiles/robot_info_suscriber.dir/rule
+
+.PHONY : robot_info_suscriber
+
+# fast build rule for target.
+robot_info_suscriber/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/robot_info_suscriber.dir/build.make my_robot_controller/CMakeFiles/robot_info_suscriber.dir/build
+.PHONY : robot_info_suscriber/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_gennodejs.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_gennodejs.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_gennodejs.dir/rule
+
+# Convenience name for target.
+my_robot_controller_gennodejs: my_robot_controller/CMakeFiles/my_robot_controller_gennodejs.dir/rule
+
+.PHONY : my_robot_controller_gennodejs
+
+# fast build rule for target.
+my_robot_controller_gennodejs/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_gennodejs.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_gennodejs.dir/build
+.PHONY : my_robot_controller_gennodejs/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_nodejs.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_nodejs.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+my_robot_controller_generate_messages_nodejs: my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_nodejs.dir/rule
+
+.PHONY : my_robot_controller_generate_messages_nodejs
+
+# fast build rule for target.
+my_robot_controller_generate_messages_nodejs/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_nodejs.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_nodejs.dir/build
+.PHONY : my_robot_controller_generate_messages_nodejs/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_genlisp.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_genlisp.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_genlisp.dir/rule
+
+# Convenience name for target.
+my_robot_controller_genlisp: my_robot_controller/CMakeFiles/my_robot_controller_genlisp.dir/rule
+
+.PHONY : my_robot_controller_genlisp
+
+# fast build rule for target.
+my_robot_controller_genlisp/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_genlisp.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_genlisp.dir/build
+.PHONY : my_robot_controller_genlisp/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_lisp.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_lisp.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+my_robot_controller_generate_messages_lisp: my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_lisp.dir/rule
+
+.PHONY : my_robot_controller_generate_messages_lisp
+
+# fast build rule for target.
+my_robot_controller_generate_messages_lisp/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_lisp.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_lisp.dir/build
+.PHONY : my_robot_controller_generate_messages_lisp/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_geneus.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_geneus.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_geneus.dir/rule
+
+# Convenience name for target.
+my_robot_controller_geneus: my_robot_controller/CMakeFiles/my_robot_controller_geneus.dir/rule
+
+.PHONY : my_robot_controller_geneus
+
+# fast build rule for target.
+my_robot_controller_geneus/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_geneus.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_geneus.dir/build
+.PHONY : my_robot_controller_geneus/fast
 
 # Convenience name for target.
 my_robot_controller/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
@@ -378,19 +468,19 @@ geometry_msgs_generate_messages_py/fast:
 .PHONY : geometry_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-my_robot_controller/CMakeFiles/robot_uart_control.dir/rule:
-	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/robot_uart_control.dir/rule
-.PHONY : my_robot_controller/CMakeFiles/robot_uart_control.dir/rule
+my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_py.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_py.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_py.dir/rule
 
 # Convenience name for target.
-robot_uart_control: my_robot_controller/CMakeFiles/robot_uart_control.dir/rule
+my_robot_controller_generate_messages_py: my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_py.dir/rule
 
-.PHONY : robot_uart_control
+.PHONY : my_robot_controller_generate_messages_py
 
 # fast build rule for target.
-robot_uart_control/fast:
-	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/robot_uart_control.dir/build.make my_robot_controller/CMakeFiles/robot_uart_control.dir/build
-.PHONY : robot_uart_control/fast
+my_robot_controller_generate_messages_py/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_py.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_py.dir/build
+.PHONY : my_robot_controller_generate_messages_py/fast
 
 # Convenience name for target.
 my_robot_controller/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
@@ -498,6 +588,36 @@ sensor_msgs_generate_messages_lisp/fast:
 .PHONY : sensor_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_cpp: my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_cpp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
+.PHONY : geometry_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_eus: my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_eus
+
+# fast build rule for target.
+geometry_msgs_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
+.PHONY : geometry_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
 my_robot_controller/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
 	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 .PHONY : my_robot_controller/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
@@ -528,34 +648,136 @@ sensor_msgs_generate_messages_py/fast:
 .PHONY : sensor_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+my_robot_controller/CMakeFiles/my_robot_controller_generate_messages.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_generate_messages.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_generate_messages.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_cpp: my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+my_robot_controller_generate_messages: my_robot_controller/CMakeFiles/my_robot_controller_generate_messages.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_cpp
+.PHONY : my_robot_controller_generate_messages
 
 # fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
+my_robot_controller_generate_messages/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_generate_messages.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_generate_messages.dir/build
+.PHONY : my_robot_controller_generate_messages/fast
 
 # Convenience name for target.
-my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-.PHONY : my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+my_robot_controller/CMakeFiles/_my_robot_controller_generate_messages_check_deps_TramaDatos.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/_my_robot_controller_generate_messages_check_deps_TramaDatos.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/_my_robot_controller_generate_messages_check_deps_TramaDatos.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_eus: my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+_my_robot_controller_generate_messages_check_deps_TramaDatos: my_robot_controller/CMakeFiles/_my_robot_controller_generate_messages_check_deps_TramaDatos.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_eus
+.PHONY : _my_robot_controller_generate_messages_check_deps_TramaDatos
 
 # fast build rule for target.
-geometry_msgs_generate_messages_eus/fast:
-	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make my_robot_controller/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
-.PHONY : geometry_msgs_generate_messages_eus/fast
+_my_robot_controller_generate_messages_check_deps_TramaDatos/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/_my_robot_controller_generate_messages_check_deps_TramaDatos.dir/build.make my_robot_controller/CMakeFiles/_my_robot_controller_generate_messages_check_deps_TramaDatos.dir/build
+.PHONY : _my_robot_controller_generate_messages_check_deps_TramaDatos/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_genpy.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_genpy.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_genpy.dir/rule
+
+# Convenience name for target.
+my_robot_controller_genpy: my_robot_controller/CMakeFiles/my_robot_controller_genpy.dir/rule
+
+.PHONY : my_robot_controller_genpy
+
+# fast build rule for target.
+my_robot_controller_genpy/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_genpy.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_genpy.dir/build
+.PHONY : my_robot_controller_genpy/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_eus.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_eus.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+my_robot_controller_generate_messages_eus: my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_eus.dir/rule
+
+.PHONY : my_robot_controller_generate_messages_eus
+
+# fast build rule for target.
+my_robot_controller_generate_messages_eus/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_eus.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_eus.dir/build
+.PHONY : my_robot_controller_generate_messages_eus/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_cpp.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_cpp.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+my_robot_controller_generate_messages_cpp: my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_cpp.dir/rule
+
+.PHONY : my_robot_controller_generate_messages_cpp
+
+# fast build rule for target.
+my_robot_controller_generate_messages_cpp/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_cpp.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_generate_messages_cpp.dir/build
+.PHONY : my_robot_controller_generate_messages_cpp/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/robot_uart_control.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/robot_uart_control.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/robot_uart_control.dir/rule
+
+# Convenience name for target.
+robot_uart_control: my_robot_controller/CMakeFiles/robot_uart_control.dir/rule
+
+.PHONY : robot_uart_control
+
+# fast build rule for target.
+robot_uart_control/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/robot_uart_control.dir/build.make my_robot_controller/CMakeFiles/robot_uart_control.dir/build
+.PHONY : robot_uart_control/fast
+
+# Convenience name for target.
+my_robot_controller/CMakeFiles/my_robot_controller_gencpp.dir/rule:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_robot_controller/CMakeFiles/my_robot_controller_gencpp.dir/rule
+.PHONY : my_robot_controller/CMakeFiles/my_robot_controller_gencpp.dir/rule
+
+# Convenience name for target.
+my_robot_controller_gencpp: my_robot_controller/CMakeFiles/my_robot_controller_gencpp.dir/rule
+
+.PHONY : my_robot_controller_gencpp
+
+# fast build rule for target.
+my_robot_controller_gencpp/fast:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/my_robot_controller_gencpp.dir/build.make my_robot_controller/CMakeFiles/my_robot_controller_gencpp.dir/build
+.PHONY : my_robot_controller_gencpp/fast
+
+src/robot_info_suscriber.o: src/robot_info_suscriber.cpp.o
+
+.PHONY : src/robot_info_suscriber.o
+
+# target to build an object file
+src/robot_info_suscriber.cpp.o:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/robot_info_suscriber.dir/build.make my_robot_controller/CMakeFiles/robot_info_suscriber.dir/src/robot_info_suscriber.cpp.o
+.PHONY : src/robot_info_suscriber.cpp.o
+
+src/robot_info_suscriber.i: src/robot_info_suscriber.cpp.i
+
+.PHONY : src/robot_info_suscriber.i
+
+# target to preprocess a source file
+src/robot_info_suscriber.cpp.i:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/robot_info_suscriber.dir/build.make my_robot_controller/CMakeFiles/robot_info_suscriber.dir/src/robot_info_suscriber.cpp.i
+.PHONY : src/robot_info_suscriber.cpp.i
+
+src/robot_info_suscriber.s: src/robot_info_suscriber.cpp.s
+
+.PHONY : src/robot_info_suscriber.s
+
+# target to generate assembly for a file
+src/robot_info_suscriber.cpp.s:
+	cd /home/ubuntu/Tesis/rmo_ws/build && $(MAKE) -f my_robot_controller/CMakeFiles/robot_info_suscriber.dir/build.make my_robot_controller/CMakeFiles/robot_info_suscriber.dir/src/robot_info_suscriber.cpp.s
+.PHONY : src/robot_info_suscriber.cpp.s
 
 src/robot_uart_control.o: src/robot_uart_control.cpp.o
 
@@ -592,8 +814,15 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... list_install_components"
-	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... robot_info_suscriber"
+	@echo "... my_robot_controller_gennodejs"
+	@echo "... my_robot_controller_generate_messages_nodejs"
+	@echo "... my_robot_controller_genlisp"
+	@echo "... my_robot_controller_generate_messages_lisp"
+	@echo "... my_robot_controller_geneus"
+	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_eus"
@@ -608,8 +837,8 @@ help:
 	@echo "... install"
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... robot_uart_control"
 	@echo "... install/local"
+	@echo "... my_robot_controller_generate_messages_py"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... sensor_msgs_generate_messages_cpp"
@@ -618,11 +847,20 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_eus"
-	@echo "... edit_cache"
+	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... sensor_msgs_generate_messages_py"
+	@echo "... my_robot_controller_generate_messages"
+	@echo "... _my_robot_controller_generate_messages_check_deps_TramaDatos"
+	@echo "... my_robot_controller_genpy"
+	@echo "... my_robot_controller_generate_messages_eus"
+	@echo "... my_robot_controller_generate_messages_cpp"
+	@echo "... robot_uart_control"
+	@echo "... my_robot_controller_gencpp"
+	@echo "... src/robot_info_suscriber.o"
+	@echo "... src/robot_info_suscriber.i"
+	@echo "... src/robot_info_suscriber.s"
 	@echo "... src/robot_uart_control.o"
 	@echo "... src/robot_uart_control.i"
 	@echo "... src/robot_uart_control.s"

@@ -2,6 +2,7 @@
 #include <boost/asio.hpp>
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
+#include <my_robot_controller/TramaDatos.h>
 #include <vector>
 #include <deque>
 #include <cmath>
@@ -52,6 +53,9 @@ DataPacket data_global;
 // Buffer to store serial data
 deque<uint8_t> serial_buffer;
 
+// ROS publisher
+ros::Publisher pub;
+
 // Function to generate velocity ramp
 void generarRampaVelocidad(Vel_espacial* vel_inicial, Vel_espacial* vel_final, 
                            vector<float>& rampa_vx, vector<float>& rampa_vy, vector<float>& rampa_wz) {
@@ -89,11 +93,18 @@ void leerTrama() {
             float u2 = trama_rx.data.u_m[1];
             float u3 = trama_rx.data.u_m[2];
             float u4 = trama_rx.data.u_m[3];
-                
-            // cout << "Trama_rx: " << trama_rx << endl;
+            uint16_t v_bat = trama_rx.data.v_bat;
+
+            // Publicar al topico v_bat y u_m
+            my_robot_controller::TramaDatos msg;
+            msg.v_bat = v_bat;
+            for (int i = 0; i < 4; i++) {
+                msg.u_m[i] = trama_rx.data.u_m[i];
+            }
+            pub.publish(msg);
 
             std::cout << "u1: " << u1 << ", u2: " << u2 << ", u3: " << u3 << ", u4: " << u4 << std::endl;
-            std::cout << "i_m: " << trama_rx.data.i_m << ", v_bat: " << trama_rx.data.v_bat << std::endl;
+            std::cout << "i_m: " << trama_rx.data.i_m << ", v_bat: " << v_bat << std::endl;
             std::cout << "a_m[0]: " << trama_rx.data.a_m[0] << ", a_m[1]: " << trama_rx.data.a_m[1] << ", a_m[2]: " << trama_rx.data.a_m[2] << std::endl;
             std::cout << "phi_m[0]: " << trama_rx.data.phi_m[0] << ", phi_m[1]: " << trama_rx.data.phi_m[1] << ", phi_m[2]: " << trama_rx.data.phi_m[2] << std::endl;
         }
@@ -130,6 +141,9 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "serial_node");
     ros::NodeHandle nh;
     ros::Subscriber sub = nh.subscribe<sensor_msgs::Joy>("joy", 10, joyCallback);
+    
+    // Initialize publisher
+    pub = nh.advertise<my_robot_controller::TramaDatos>("robot_info", 10);
 
     try {
         serial.open("/dev/ttyAMA0"); // Change '/dev/ttyAMA0' to the correct serial port

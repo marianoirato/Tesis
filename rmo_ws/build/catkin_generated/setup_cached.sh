@@ -8,3 +8,4 @@
 
 # modified environment variables
 export PWD='/home/ubuntu/Tesis/rmo_ws/build'
+export PYTHONPATH="/home/ubuntu/Tesis/rmo_ws/devel/lib/python3/dist-packages:$PYTHONPATH"
